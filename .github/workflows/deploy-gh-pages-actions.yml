@@ -14,8 +14,10 @@ jobs:
         with:
           node-version: "16"
       - run: |
-          git config --global user.email "${{github.event.pusher.email}}"
+          git config --global user.email "${{ github.event.pusher.email }}"
           git config --global user.name "${{ github.actor }}"
       - run: npm install -g yarn
       - run: yarn install
+      - run: |
+          git remote set-url origin https://git:${{ github.token }}@github.com/${{ github.repository }}.git
       - run: yarn run deploy
