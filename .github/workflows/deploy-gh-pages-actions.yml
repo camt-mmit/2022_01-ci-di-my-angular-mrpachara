@@ -4,13 +4,16 @@ on:
   push:
     branchs: main
 jobs:
-  check-bats-version:
+  deploy-gh-pages:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: "16"
+      - run: |
+          git config --global user.email "${{github.event.pusher.email}}" && |
+          git config --global user.name "${{ github.actor }}"
       - run: npm install -g yarn
       - run: yarn install
       - run: yarn run deploy
