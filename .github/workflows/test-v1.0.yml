@@ -1,4 +1,4 @@
-name: test-v1.0
+name: test-v1_0
 run-name: ${{ github.actor }} is testing v1.0
 on:
   push:
