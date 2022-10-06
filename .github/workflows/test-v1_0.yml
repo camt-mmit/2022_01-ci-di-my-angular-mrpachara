@@ -5,7 +5,7 @@ on:
     branches:
       - v1.0
 jobs:
-  test-v1.0:
+  test-v1_0:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
