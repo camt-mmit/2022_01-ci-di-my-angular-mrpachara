@@ -30,21 +30,17 @@ jobs:
         run: npx ng build --configuration=production --base-href=/${{ github.event.repository.name }}/
       - name: Create push directory
         run: |
-          mkdir gh-pages
-          git init -b gh-pages ./gh-pages
-          cd ./gh-pages
+          mkdir -p ./dist/gh-pages
+          git init -b gh-pages ./dist/gh-pages
+          cd ./dist/gh-pages
           git remote add -t gh-pages origin \
           https://git:${{ github.token }}@github.com/${{ github.repository }}.git
           git fetch -u origin gh-pages:gh-pages || exit 0
+          cp -rf ../my-angular/* ./
           cd ..
-      - name: Add new version to push directory
-        run: |
-          rm -rf ./gh-pages/${{ env.VERSION }}
-          mkdir -p ./gh-pages/${{ env.VERSION }}
-          cp -rf ./src/* ./gh-pages/${{ env.VERSION }}/
       - name: Push to gh-pages
         run: |
-          cd ./gh-pages
+          cd ./dist/gh-pages
           git add .
           git commit -m "${{ github.actor }} publis version ${{ env.VERSION }}"
           git push origin gh-pages
