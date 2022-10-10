@@ -3,12 +3,12 @@ run-name: ${{ github.actor }} is releasing feature
 on:
   push:
     branches:
-      - v*.*.*
+      - b*.*.*
 jobs:
   ci-feature:
     runs-on: ubuntu-latest
     env:
-      BRANCH_NAME: ${{ github.ref }}
+      REF_NAME: ${{ github.ref }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -16,6 +16,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16"
+      - name: Setup environment variables
+        run: |
+          echo "VERSION=${refs/heads/b#}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=b${VERSION}" >> $GITHUB_ENV
+          echo "TAG_NAME=v${VERSION}" >> $GITHUB_ENV
       - name: Setup git user
         run: |
           git config --global user.email "${{ github.event.pusher.email }}"
@@ -34,5 +39,5 @@ jobs:
           git checkout main
           git merge ${{ env.BRANCH_NAME }}
           git push origin main
-          git tag -a ${{ env.BRANCH_NAME }} -m "my version ${{ env.BRANCH_NAME }}"
+          git tag -a ${{ env.TAG_NAME }} -m "my version ${{ env.VERSION }}"
           git push origin main --tags
