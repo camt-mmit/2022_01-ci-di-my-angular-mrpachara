@@ -37,6 +37,7 @@ jobs:
           https://git:${{ github.token }}@github.com/${{ github.repository }}.git
           git fetch -u origin gh-pages:gh-pages || exit 0
           cp -rf ../my-angular/* ./
+          cp ./index.html ./404.html
           cd ..
       - name: Push to gh-pages
         run: |
