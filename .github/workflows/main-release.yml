@@ -2,8 +2,6 @@ name: main release
 run-name: ${{ github.actor }} is releasing main
 on:
   push:
-    branches:
-      - main
     tags:
       - v*.*.*
 jobs:
