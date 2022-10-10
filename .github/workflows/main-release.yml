@@ -30,5 +30,5 @@ jobs:
           echo "TAG_NAME=v${VERSION}" >> $GITHUB_ENV
       - name: Release main
         uses: ncipollo/release-action@v1
-          with:
-            token: ${{ secrets.RELEASE_TOKEN }}
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}

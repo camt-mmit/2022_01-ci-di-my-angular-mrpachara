@@ -13,27 +13,27 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.PUSH_MAIN }}
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "16"
-      - name: Setup environment variables
-        run: |
-          VERSION="${REF_NAME#refs/heads/b}"
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
-          echo "BRANCH_NAME=b${VERSION}" >> $GITHUB_ENV
-          echo "TAG_NAME=v${VERSION}" >> $GITHUB_ENV
-      - name: Setup git user
-        run: |
-          git config --global user.email "${{ github.event.pusher.email }}"
-          git config --global user.name "${{ github.actor }}"
-      - name: Install yarn
-        run: npm install -g yarn
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Lint project
-        run: yarn run lint
-      - name: Test project
-        run: yarn run test:ci
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: "16"
+      # - name: Setup environment variables
+      #   run: |
+      #     VERSION="${REF_NAME#refs/heads/b}"
+      #     echo "VERSION=${VERSION}" >> $GITHUB_ENV
+      #     echo "BRANCH_NAME=b${VERSION}" >> $GITHUB_ENV
+      #     echo "TAG_NAME=v${VERSION}" >> $GITHUB_ENV
+      # - name: Setup git user
+      #   run: |
+      #     git config --global user.email "${{ github.event.pusher.email }}"
+      #     git config --global user.name "${{ github.actor }}"
+      # - name: Install yarn
+      #   run: npm install -g yarn
+      # - name: Install dependencies
+      #   run: yarn install --frozen-lockfile
+      # - name: Lint project
+      #   run: yarn run lint
+      # - name: Test project
+      #   run: yarn run test:ci
       - name: Merge to main
         run: |
           git fetch --unshallow
