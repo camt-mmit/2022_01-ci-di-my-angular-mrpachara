@@ -5,10 +5,10 @@ on:
     types: [published]
 jobs:
   push-to-gh-pages:
+    if: ${{ !contains(github.event.release.tag_name, 'alpha') && !contains(github.event.release.tag_name, 'beta') }}
     runs-on: ubuntu-latest
     env:
       RELEASE_TAG: ${{ github.event.release.tag_name }}
-    if: ${{ !contains(env.RELEASE_TAG, 'alpha') && !contains(env.RELEASE_TAG, 'beta') }}
     steps:
       - name: Setup environment variables
         run: |
