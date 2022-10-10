@@ -18,7 +18,7 @@ jobs:
           node-version: "16"
       - name: Setup environment variables
         run: |
-          echo "VERSION=${refs/heads/b#}" >> $GITHUB_ENV
+          echo "VERSION=${REF_NAME:refs/heads/b#}" >> $GITHUB_ENV
           echo "BRANCH_NAME=b${VERSION}" >> $GITHUB_ENV
           echo "TAG_NAME=v${VERSION}" >> $GITHUB_ENV
       - name: Setup git user
