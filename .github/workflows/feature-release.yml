@@ -26,19 +26,19 @@ jobs:
         run: |
           git config --global user.email "${{ github.event.pusher.email }}"
           git config --global user.name "${{ github.actor }}"
-      - name: Install yarn
-        run: npm install -g yarn
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Lint project
-        run: yarn run lint
-      - name: Test project
-        run: yarn run test:ci
+      # - name: Install yarn
+      #   run: npm install -g yarn
+      # - name: Install dependencies
+      #   run: yarn install --frozen-lockfile
+      # - name: Lint project
+      #   run: yarn run lint
+      # - name: Test project
+      #   run: yarn run test:ci
       - name: Merge to main
         run: |
           git fetch --unshallow
           git checkout main
           git merge ${{ env.BRANCH_NAME }}
+          git push --delete origin ${{ env.TAG_NAME }}
           git tag -a ${{ env.TAG_NAME }} -m "my version ${{ env.VERSION }}"
           git push origin main --tags
-          git push --delete origin ${{ env.TAG_NAME }}
