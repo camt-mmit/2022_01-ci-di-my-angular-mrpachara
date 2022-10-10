@@ -2,6 +2,8 @@ name: main release
 run-name: ${{ github.actor }} is releasing main
 on:
   push:
+    branches:
+      - (!releases/**)
     tags:
       - v*.*.*
 jobs:
@@ -27,11 +29,6 @@ jobs:
           echo "BRANCH_NAME=b${VERSION}" >> $GITHUB_ENV
           echo "TAG_NAME=v${VERSION}" >> $GITHUB_ENV
       - name: Release main
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        with:
-          tag_name: ${{ env.TAG_NAME }}
-          release_name: Release ${{ env.VERSION }}
-          draft: false
-          prerelease: false
+        uses: ncipollo/release-action@v1
+          with:
+            token: ${{ secrets.RELEASE_TOKEN }}
