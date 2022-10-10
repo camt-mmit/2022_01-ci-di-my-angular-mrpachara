@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is releasing main
 on:
   push:
     branches:
-      - (!releases/**)
+      - '!releases/**'
     tags:
       - v*.*.*
 jobs:
